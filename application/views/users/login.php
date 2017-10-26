@@ -11,7 +11,7 @@
     ?>
     <form action="" method="post">
         <div class="form-group has-feedback">
-            <input type="text" class="form-control" name="username" placeholder="Username" required="" value="">
+            <input type="text" class="form-control" name="username" placeholder="Username" required="" value="<?=set_value('username');?>">
             <?php echo form_error('username','<span class="help-block">','</span>'); ?>
         </div>
         <div class="form-group">
