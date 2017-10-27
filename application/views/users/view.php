@@ -1,6 +1,7 @@
 
 
-<h2><?php echo $users->id;?></h2>
+<h2><?= $users->username ;?></h2>
 
-Username : <?php echo $users->id?><br>
-Name : <?php echo $users->name;?><br>
+Username : <?= $users->id?><br>
+Name : <?= $users->name;?><br>
+Image:<img src='../assets/images/<?= $users->image;?>' width="50px" height="50px">

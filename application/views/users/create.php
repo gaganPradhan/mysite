@@ -5,10 +5,13 @@
 	        'name' => $this->security->get_csrf_token_name(),
 	        'hash' => $this->security->get_csrf_hash()
 	);
-?>
+?>	<div class="container">
 	<?=form_label('Username');?>
 	<?=form_input('username', set_value('username'));?>
 	<?=form_error('username');?><br>
+	<?=form_label('Name');?>
+	<?=form_input('name', set_value('name'));?>
+	<?=form_error('name');?><br>
 	<?=form_label('Password');?>
 	<?=form_password('password');?>
 	<?=form_error('password');?><br>
@@ -29,3 +32,4 @@
 	<input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
 	<input type='submit' name='submit' value='Sign up'/>
 </form>
+</div>

@@ -1,5 +1,9 @@
-<br>
 
-<em>$copy; 2015</em>
+<br>
+<footer>
+	
+	<em>$copy; 2015</em>
+
+</footer>
 </body>
 </html>
