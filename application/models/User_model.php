@@ -15,7 +15,8 @@ class User_model extends CI_Model {
 			'email'    => $this->input->post('email'),
 			'slug'     => $slug,
 			'image'    => $this->upload->data('file_name'),
-			'salt'     => $salt
+			'salt'     => $salt,
+			'dpt_id'   => $this->input->post('department')
 		];		
 		return $this->db->insert('users', $data);
 	}
@@ -34,6 +35,10 @@ class User_model extends CI_Model {
 		}
 
 	}	
+	public function get_departments(){
+		$query = $this->db->get('departments');
+		return $query->result_object();
+	}
 
 	public function login_valid(){		
 		$salt = 'grafi';

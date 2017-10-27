@@ -38,8 +38,9 @@ class Users extends CI_Controller{
 
 	public function create(){	
 		$data = [
-				'title' => 'Create User profile',
-				'path'  => 'users/create'
+				'title'       => 'Create User profile',
+				'path'        => 'users/create',
+				'departments' => $this->User_model->get_departments()
 				];
 		$this->form_validation->set_message('is_unique','{field} already exists');
 		$this->form_validation->set_rules('username', 'Username', 'required|min_length[2]|callback_regex_check|max_length[32]|is_unique[users.username]');

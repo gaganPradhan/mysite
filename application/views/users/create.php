@@ -23,6 +23,13 @@
 	<?=form_error('email');?><br>
 	<?=form_label('Upload an image');?>
 	<?=form_upload('image');?>
+	<?=form_label('Select Department');?>
+	<?php
+	foreach($departments as $department){
+			$option[$department->id] = $department->department_name;
+		}
+		echo form_dropdown('department', $option, 1);	
+	?><br>
 	<?php if(!empty($errors)) 
 		{foreach($errors as $error){
 			echo $error . PHP_EOL;
