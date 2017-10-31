@@ -56,12 +56,13 @@ $route['users/create'] = 'users/create';
 $route['users/login'] = 'users/login';
 $route['users/logout'] = 'users/logout';
 $route['users/account'] = 'users/account';
+$route['users/update'] = 'users/update';
+$route['users/delete'] = 'users/delete';
 $route['users/(:any)'] = 'users/view/$1';
 
-$route['requests'] = 'requests/list';
+$route['list'] = 'requests/list';
 $route['default_controller'] = 'requests/index';
 $route['(:any)'] = 'requests/view/$1';
-
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

@@ -18,6 +18,7 @@ class Request_model extends CI_Model {
 
 	public function get_requests($id = FALSE){
 		if($id === FALSE){
+			$this->db->order_by('request_date');
 			$this->db->select('*, requests.id AS id');    
 			$this->db->from('users');
 			$this->db->join('requests', 'users.id = requests.user_id');
@@ -37,10 +38,21 @@ class Request_model extends CI_Model {
 			$datas = $query->result_object();
 			foreach ($datas as $data) {
 				if($id === $data->user_id){
-					return True;
+					return $data;
 				}	
 			}	
 		}
 		return FALSE;	
+	}
+
+	public function update_request(){
+		$data = [
+			'status'        => $this->input->post('status'),
+			'remarks'       => $this->input->post('remarks'),
+			'updated_date'  => date('Y-m-d')
+		];		
+		$this->db->where('id', $this->input->post('id'));
+		$this->db->update('requests', $data);
+		return TRUE;
 	}
 }

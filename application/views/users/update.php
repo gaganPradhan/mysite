@@ -1,20 +1,17 @@
 <h2><center><?php echo $title; ?></center></h2>
-<?php if($this->session->userdata('username') && !$this->session->userdata('status')):?>
-	<h3><center>You need to log out</center></h3>
-<?php else:?>
-<?php echo form_open_multipart('users/create');?>
+<?php echo form_open_multipart('users/update');?>
 <?php 
 	$csrf = array(
 	        'name' => $this->security->get_csrf_token_name(),
 	        'hash' => $this->security->get_csrf_hash()
 	);
-?>	
+?>	<div class="container">
 	<?=form_label('Username');?><br>
 	<?php 
         $data = [
             'name' => 'username',
             'class' => 'form-control',
-            'value' => set_value('username')                    
+            'value' => $users->username                    
         ];
     ?>            
     <?= form_input($data);?> 	
@@ -24,40 +21,23 @@
         $data = [
             'name' => 'name',
             'class' => 'form-control',
-            'value' => set_value('name')                    
+            'value' => $users->name                    
         ];
     ?>            
     <?= form_input($data);?> 	
-	<?=form_error('username');?><br>
-
-	<?=form_label('Password');?><br>
-	<?php 
-        $data = [
-            'name' => 'password',
-            'class' => 'form-control'                 
-        ];
-    ?>            
-    <?= form_password($data);?> 	
-	<?=form_label('Password Again');?><br>
-	<?php 
-        $data = [
-            'name' => 'passconf',
-            'class' => 'form-control',
-            'value' => set_value('passconf')                    
-        ];
-    ?>            
-           
-	<?=form_password($data);?>
+	<?=form_error('username');?><br>          
+	
 	<?=form_label('Email');?><br>
 	<?php 
         $data = [
             'name' => 'email',
             'class' => 'form-control',
-            'value' => set_value('email') 
+            'value' => $users->email 
         ];                   
     ?>            
-    <?= form_input($data);?> 	
-	<?=form_label('Upload an image');?><br>
+    <?= form_input($data);?>
+	<?=form_label('Change Your Image');?><br>
+	<img src="<?=site_url('/assets/images/'.$users->image)?>" width='100' height='100'>
 	<?=form_upload('image');?>
 	<?php if(!empty($errors)) 
 		{foreach($errors as $error){
@@ -69,11 +49,16 @@
 	foreach($departments as $department){
 			$option[$department->id] = $department->department_name;
 		}
-		echo form_dropdown('department', $option, 1);	
+		echo form_dropdown('department', $option, $users->dpt_id);	
 	?><br>
-	
+	<?php if(!empty($errors)) 
+		{foreach($errors as $error){
+			echo $error . PHP_EOL;
+		}
+	}?>
 	<?=form_hidden('time', time());?><br>
-	<input type='submit' name='submit' value='Sign up'/>
+	<?=form_hidden('id', $users->id);?><br>
+	<input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
+	<input type='submit' name='submit' value='Update'/>
 </form>
 </div>
-<?php endif;?>

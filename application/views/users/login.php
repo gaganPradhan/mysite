@@ -4,9 +4,17 @@
 
     <?php if(!$log){?>
     <h2>User Login</h2>
-    <form action="" method="post">
+    <?=form_open('users/login');?>
         <div class="form-group has-feedback">
-            <input type="text" class="form-control" name="username" placeholder="Username" required="" value="<?=set_value('username');?>">
+            <?php 
+                $data = [
+                    'name' => 'username',
+                    'class' => 'form-control',
+                    'value' => set_value('username'),
+                    'placeholder' => 'Username'
+                ];
+            ?>            
+            <?= form_input($data);?>           
             <?php echo form_error('username','<span class="help-block">','</span>'); ?>
         </div>
         <div class="form-group">

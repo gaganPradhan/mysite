@@ -1,9 +1,8 @@
-
+</div>
 <br>
-<footer>
-	
-	<em>$copy; 2015</em>
 
-</footer>
+<script>
+	CKEDITOR.replace('editor1');
+</script>
 </body>
 </html>

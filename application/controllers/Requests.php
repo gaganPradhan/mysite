@@ -19,7 +19,8 @@ class Requests extends CI_Controller {
 			if($this->form_validation->run() === FALSE){					
 				
 			}else{
-				$this->Request_model->set_request();				
+				$this->Request_model->set_request();
+				redirect('requests/list','refresh');				
 		    }
 		}catch(Exception $e){
 			die('Request not registered'. $e->getMessage());
@@ -27,11 +28,15 @@ class Requests extends CI_Controller {
 		$this->load->view('templates/master', $data);
 	}
        
-	
 
 	public function view($id = null) {
-		$data = ['title' => 'Request Detail', 'path' => 'requests/view', 'users' => $this->Request_model->get_requests($id)];
-		if(empty($data)){
+		$data = ['title' => 'Request Detail', 'path' => 'requests/view', 'users' => $this->Request_model->get_requests($id)];		
+		
+        if($this->input->post('submit')){        	
+        	$this->Request_model->update_request();
+        	redirect('list', 'refresh');
+        }
+        if(empty($data['users'])){
 			show_404();
 		}
 		$this->load->view('templates/master', $data);
@@ -39,6 +44,7 @@ class Requests extends CI_Controller {
 
 	public function list() {
 		$data = ['title' => 'Request List', 'path'=>'requests/list', 'users' => $this->Request_model->get_requests()];       
-        $this->load->view('templates/master', $data);  
+       
+         $this->load->view('templates/master', $data);  
 	}
 }
