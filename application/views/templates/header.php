@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<title>
-		Frame Work
+		<?=$title?>
 		</title>		
 		  <meta name="viewport" content="width=device-width, initial-scale=1">
 		  
@@ -54,16 +54,19 @@ if($this->session->flashdata('error')){
 echo $this->session->flashdata('error');
 }
 if($this->session->flashdata('register')){
-echo $this->session->flashdata('register');
+echo "<p class = 'alert alert-success'>".$this->session->flashdata('register')."</p>";
 }
 if($this->session->flashdata('login')){
-echo $this->session->flashdata('login');
+echo "<p class = 'alert alert-success'>".$this->session->flashdata('login')."</p>";
 }
 if($this->session->flashdata('update')){
-echo $this->session->flashdata('update');
+echo "<p class = 'alert alert-success'>".$this->session->flashdata('update')."</p>";
 }
 if($this->session->flashdata('delete')){
-echo $this->session->flashdata('delete');
+echo "<p class = 'alert alert-success'>".$this->session->flashdata('delete')."</p>";
+}
+if($this->session->flashdata('notification')){
+echo "<p class = 'alert alert-success'>".$this->session->flashdata('notification')."</p>";
 }
 ?>
  

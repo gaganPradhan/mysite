@@ -8,21 +8,24 @@ echo $this->session->flashdata('login');
 		<img src='<?=site_url('/assets/images/'.$users->image); ?>' width = "200" height = "200">
 	</div>
 	<div class="col-md-9">
-		<table >			
+		<table>			
 			<tr>
-
-				<td>Username </td><td> :  <?php echo $users->username;?></td>
-				
+				<td>Username </td><td> :  <?php echo $users->username;?></td>				
 			</tr>
 			<tr>
 				<td>Name </td><td>:  <?php echo $users->name;?></td>
 			</tr>
 			<tr>
 				<td>Department</td><td>:  <?= $department->department_name;?></td>
-			</tr>				
+			</tr>		
+			<tr>
+				<td>Email</td><td>:  <?= $users->email;?></td>
+			</tr>		
 		</table>
 		<br><br><br>
-		<a href="<?=site_url('/users/delete')?>">Delete</a>
+		<a href="<?=site_url('/users/delete')?>">Delete Account</a><br>
+		<a href="<?=site_url('/users/update/pswrdchng')?>">Change Password</a>
+
 	</div>
 </div>
 <br>

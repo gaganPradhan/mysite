@@ -1,12 +1,14 @@
 <div class='container'>
-	<div class="col-md-3">
+
+	<div class="col-md-3" >
 		<h2>Request Id: <?php echo $users->id;?></h2>
 	</div>
 	<div class="col-md-9">
+
 		<b>Name</b><br>
 		<?php echo $users->inventory_name;?><br><br>
 		<b>Details</b><br>
-		<?php echo $users->detail;?>
+		<?php echo $users->detail;?><br>	
 		<?php if($this->session->userdata('status')):?>			
 			<?=form_open('requests/view')?>		
 			<select name="status">
@@ -20,8 +22,14 @@
 			<?=form_label('Remarks')?>
 			<?=form_textarea(['name'=>'remarks', 'id' => 'editor1', 'value' => $users->remarks]);?>
 			<?=form_hidden('id', $users->id);?>
+			<?=form_hidden('org_status', $users->status);?>
 			<input type='submit' name='submit' value='Submit'/>
 			</form>
+
+		<?php elseif($users->remarks):?>
+			<b>Remarks</b><br>
+			<?=$users->remarks?>
+
 		<?php endif;?>
 	</div>
 </div>

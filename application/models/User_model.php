@@ -5,6 +5,8 @@ class User_model extends CI_Model {
 		$this->load->database();
 		$this->load->library('encryption');
 	}
+
+	/*Create User Account*/
 	public function set_user($image){
 		$slug = url_title($this->input->post('username'), 'dash', TRUE);	
 		$salt = 'grafi';
@@ -16,11 +18,17 @@ class User_model extends CI_Model {
 			'slug'     => $slug,
 			'image'    => $image,
 			'salt'     => $salt,
-			'dpt_id'   => $this->input->post('department')
-		];		
+			'dpt_id'   => $this->input->post('department'),
+			'groups'   => '1'
+		];
+
+ 		if($this->input->post('admin') == TRUE) {
+ 			$data['groups'] = '2';
+ 		}
 		return $this->db->insert('users', $data);
 	}
 
+	/*Get User Details*/
 	public function get_users($slug = FALSE){
 		if($slug === FALSE){
 			$this->db->order_by('username');
@@ -36,6 +44,8 @@ class User_model extends CI_Model {
 		}
 
 	}	
+
+	/*Get User Department*/
 	public function get_departments($id = NULL){
 		if($id == NULL){
 			$query = $this->db->get('departments');	
@@ -46,6 +56,7 @@ class User_model extends CI_Model {
 		
 	}
 
+	/*Check Login Validation*/
 	public function login_valid(){		
 		$salt = 'grafi';
 		$password = $this->input->post('password').$salt;
@@ -67,6 +78,7 @@ class User_model extends CI_Model {
 		return $result;
 	}
 
+	/*Check if user is logged in and gives user slug*/
 	public function logged_in(){
 		if($this->session->has_userdata('username')){
 			$query = $this->db->get_where('users', ['username'=> $this->session->userdata('username')]);		
@@ -74,6 +86,7 @@ class User_model extends CI_Model {
 		}
 	}
 
+	/*Update User Profile*/
 	public function update_user($image){
 		$slug = url_title($this->input->post('username'), 'dash', TRUE);	
 		$salt = 'grafi';
@@ -83,8 +96,9 @@ class User_model extends CI_Model {
 			'email'    => $this->input->post('email'),
 			'slug'     => $slug,
 			'image'    => $image,
-			'dpt_id'   => $this->input->post('department')
-		];		
+			'dpt_id'   => $this->input->post('department'),
+			
+ 		];
 		$this->db->where('id', $this->input->post('id'));
 		return $this->db->update('users', $data);
 	}
@@ -101,9 +115,9 @@ class User_model extends CI_Model {
 			unlink('assets/images/'.$user->image);
 		}	
 		return $query = $this->db->delete('users', ['slug'=>$id]);
-
-
 	}
+
+	/*Check if current user admin*/
 	public function has_permission($key, $username){
 		$this->db->select('groups');
 		$this->db->from('users');
@@ -118,5 +132,14 @@ class User_model extends CI_Model {
 			}
 		}
 		return false;
+	}
+	
+	public function password_change(){
+		$salt = 'grafi';
+		$data = [
+			'password' => hash('sha256', $this->input->post('password').$salt)
+		];		
+		$this->db->where('id', $this->input->post('id'));
+		return $this->db->update('users', $data);
 	}
 }	

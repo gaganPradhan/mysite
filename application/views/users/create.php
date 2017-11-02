@@ -4,17 +4,15 @@
 <?php else:?>
 <?php echo form_open_multipart('users/create');?>
 <?php 
-	$csrf = array(
-	        'name' => $this->security->get_csrf_token_name(),
-	        'hash' => $this->security->get_csrf_hash()
-	);
+	
 ?>	
 	<?=form_label('Username');?><br>
 	<?php 
         $data = [
             'name' => 'username',
             'class' => 'form-control',
-            'value' => set_value('username')                    
+            'value' => set_value('username'),
+            'autocomplete' => 'off'                   
         ];
     ?>            
     <?= form_input($data);?> 	
@@ -24,7 +22,8 @@
         $data = [
             'name' => 'name',
             'class' => 'form-control',
-            'value' => set_value('name')                    
+            'value' => set_value('name'),
+            'autocomplete' => 'off'                       
         ];
     ?>            
     <?= form_input($data);?> 	
@@ -36,27 +35,32 @@
             'name' => 'password',
             'class' => 'form-control'                 
         ];
-    ?>            
-    <?= form_password($data);?> 	
+    ?>         
+    <?= form_password($data);?>
+    <?=form_error('password');?><br> 	
+	
 	<?=form_label('Password Again');?><br>
 	<?php 
         $data = [
             'name' => 'passconf',
-            'class' => 'form-control',
-            'value' => set_value('passconf')                    
+            'class' => 'form-control'                  
         ];
-    ?>            
-           
-	<?=form_password($data);?>
+    ?>       
+   	<?=form_password($data);?>
+   	<?=form_error('passconf');?><br> 	
+
 	<?=form_label('Email');?><br>
 	<?php 
         $data = [
             'name' => 'email',
             'class' => 'form-control',
-            'value' => set_value('email') 
+            'value' => set_value('email'),
+            'autocomplete' => 'off'   
         ];                   
     ?>            
-    <?= form_input($data);?> 	
+    <?= form_input($data);?>
+    <?=form_error('email');?><br> 	
+ 	
 	<?=form_label('Upload an image');?><br>
 	<?=form_upload('image');?>
 	<?php if(!empty($errors)) 
@@ -70,7 +74,21 @@
 			$option[$department->id] = $department->department_name;
 		}
 		echo form_dropdown('department', $option, 1);	
-	?><br>
+	?><br>	
+	
+	<?php if($this->session->userdata('status')) {
+		$data = [
+	        'name'          => 'admin',
+	        'id'            => 'admin',
+	        'value'         => 'Admin',
+	        'checked'       => FALSE,
+	        'style'         => 'margin:10px'
+		];
+		echo form_label('Admin');
+		echo form_checkbox($data);
+	}
+
+	?>
 	
 	<?=form_hidden('time', time());?><br>
 	<input type='submit' name='submit' value='Sign up'/>

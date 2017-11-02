@@ -11,7 +11,8 @@
         $data = [
             'name' => 'username',
             'class' => 'form-control',
-            'value' => $users->username                    
+            'value' => $users->username,
+            'autocomplete' => 'off'                       
         ];
     ?>            
     <?= form_input($data);?> 	
@@ -21,7 +22,8 @@
         $data = [
             'name' => 'name',
             'class' => 'form-control',
-            'value' => $users->name                    
+            'value' => $users->name,
+            'autocomplete' => 'off'                       
         ];
     ?>            
     <?= form_input($data);?> 	
@@ -32,7 +34,8 @@
         $data = [
             'name' => 'email',
             'class' => 'form-control',
-            'value' => $users->email 
+            'value' => $users->email,
+            'autocomplete' => 'off'    
         ];                   
     ?>            
     <?= form_input($data);?>
@@ -51,6 +54,7 @@
 		}
 		echo form_dropdown('department', $option, $users->dpt_id);	
 	?><br>
+
 	<?php if(!empty($errors)) 
 		{foreach($errors as $error){
 			echo $error . PHP_EOL;

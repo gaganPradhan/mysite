@@ -11,7 +11,8 @@
                     'name' => 'username',
                     'class' => 'form-control',
                     'value' => set_value('username'),
-                    'placeholder' => 'Username'
+                    'placeholder' => 'Username',
+                    'autocomplete' => 'off'   
                 ];
             ?>            
             <?= form_input($data);?>           

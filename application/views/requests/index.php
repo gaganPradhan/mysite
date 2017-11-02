@@ -1,7 +1,10 @@
 
 <?php if($this->session->has_userdata('username')) {?>
 <center><h1><?=$title?></h1></center>
+
+
 <?php if(!$request){?>
+
 <?=form_open_multipart('requests/index');?>
 <div class="container">
 	
