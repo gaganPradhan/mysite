@@ -1,11 +1,10 @@
 <?php
 
-class Users extends CI_Controller{
+class Users extends MY_Controller{
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->helper('form');
-		$this->load->library('form_validation');		
+		$this->load->helper('form');	
 		$this->load->library('upload');
 		$this->load->model('User_model');
 		$this->load->library('encryption');
@@ -24,7 +23,7 @@ class Users extends CI_Controller{
     }
 
 	public function view($id = NULL){	
-		$user_slug = $this->User_model->logged_in();
+		$user_slug = $this->logged_in();
 			if(!$user_slug){
 				show_404();
 			}	
@@ -89,7 +88,7 @@ class Users extends CI_Controller{
 		$data = array(
 			'title' => 'Login',
 			'path'  => 'users/login',
-			'log'   => $this->User_model->logged_in());
+			'log'   => $this->logged_in());
       	if($this->input->post('loginSubmit')){
 			$this->form_validation->set_rules('username', 'Username', 'required');
 			$this->form_validation->set_rules('password', 'Password', 'required');	
@@ -127,7 +126,7 @@ class Users extends CI_Controller{
 				show_404();
 			}
 		}else{
-			$user_slug = $this->User_model->logged_in();
+			$user_slug = $this->logged_in();
 			if($slug !== $user_slug){
 				show_404();
 			}
@@ -143,7 +142,7 @@ class Users extends CI_Controller{
 	}
 
 	public function update($slug = NULL){	
-		$user_slug = $this->User_model->logged_in();
+		$user_slug = $this->logged_in();
 			if(!$user_slug){
 				show_404();
 			}
@@ -236,7 +235,7 @@ class Users extends CI_Controller{
 		];	
 		if($this->input->post('delete')){
 			if($id === NULL){
-				$user_slug = $this->User_model->logged_in();
+				$user_slug = $this->logged_in();
 				$id = $user_slug;
 			}			
 				$this->User_model->delete_user($id);
@@ -275,5 +274,6 @@ class Users extends CI_Controller{
 	  		return FALSE;
 		}
 	}
+
 
 }

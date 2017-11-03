@@ -60,9 +60,17 @@ $route['users/update']	= 'users/update';
 $route['users/delete']	= 'users/delete';
 $route['users/(:any)'] 	= 'users/view/$1';
 
+$route['newsletter']  		 = 'newsletter/index';
+$route['newsletter/post']    = 'newsletter/post';
+$route['newsletter/(:any)']  = 'newsletter/view/$1';
+
+$route['forgotpassword'] = 'forgotpassword/index';
+$route['forgotpassword/(:any)'] = 'forgotpassword/change/$1';
+
 $route['list']				 = 'requests/list';
 $route['default_controller'] = 'requests/index';
 $route['(:any)'] 			 = 'requests/view/$1';
+
 
 $route['404_override']		   = '';
 $route['translate_uri_dashes'] = FALSE;

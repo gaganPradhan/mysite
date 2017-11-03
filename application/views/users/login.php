@@ -27,6 +27,7 @@
         </div>
     </form>
     <p class="footInfo">Don't have an account? <a href="<?php echo base_url(); ?>users/create">Register here</a></p>
+    <p class="footInfo"><a href="<?php echo base_url(); ?>forgotpassword">Forgot Password</a></p>
 </div>
 <?php } else {?>
 <center><h2>You are already logged in. Go to your <a href="<?= base_url(); ?>users/account">profile</a></h2></center>

@@ -78,13 +78,7 @@ class User_model extends CI_Model {
 		return $result;
 	}
 
-	/*Check if user is logged in and gives user slug*/
-	public function logged_in(){
-		if($this->session->has_userdata('username')){
-			$query = $this->db->get_where('users', ['username'=> $this->session->userdata('username')]);		
-			return $query->row_object()->slug;
-		}
-	}
+	
 
 	/*Update User Profile*/
 	public function update_user($image){

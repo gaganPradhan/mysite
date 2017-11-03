@@ -39,7 +39,3 @@ if(strcmp($user->username, $this->session->userdata('username'))==0){
 
 <?php endif;?>	
 <?php }?>
-
-<div class="pagination-links">
-		<?php echo $this->pagination->create_links(); ?>
-</div>

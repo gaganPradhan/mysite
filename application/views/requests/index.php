@@ -7,6 +7,7 @@
 
 <?=form_open_multipart('requests/index');?>
 <div class="container">
+
 	
 	<?=form_label('Inventory Name');?><br>
 	<?=form_input('name', set_value('name'));?>
@@ -36,7 +37,7 @@
 	</tr>	
 </table>
 <?php }?>
- <?php 
+<?php 
 }else {?>
 
 <center><h2>Please <a href="<?=base_url();?>users/login">Log in</a> to request inventory.</h2></center>

@@ -4,7 +4,6 @@ class Requests extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->helper('form');
-		$this->load->library('form_validation');
 	}
 
 	public function index(){
@@ -35,7 +34,6 @@ class Requests extends CI_Controller {
 
 	public function view($id = null) {
 		$data = ['title' => 'Request Detail', 'path' => 'requests/view', 'users' => $this->Request_model->get_request($id)];		
-		
         if($this->input->post('submit')){        	
         	$this->Request_model->update_request();
         	redirect('list', 'refresh');
