@@ -1,34 +1,44 @@
 <?php
+
 class Forgotpassword_model extends CI_Model {
 
-	function user_exists() {
-		$query = $this->db->get_where('users', ['email'=> $this->input->post('email')]);
-			return $query->row();
+	public function email_exists($email)
+	{	
+		$query = $this->db->get_where('users', ['email' => $email]);
+		return $query->row();
+
 	}
-	
-	function send_reset_password_email($email, $username){
-		$this->load->library('email');
-		$email_code = password_hash($username, PASSWORD_BCRYPT);
-		$config = [
-			 'protocol' => 'smtp', 
-			 'smtp_host' => 'ssl://smtp.googlemail.com', 
-			 'smtp_port' => 465, 
-			 'smtp_user' => 'namoshi.test@gmail.com', 
-			 'smtp_pass' => '$password',
-			 'mailtype' => 'html',
-  			 'charset' => 'charset-utf-8',
-  			 'wordwrap' => TRUE 
-		   ]; 
-		$this->load->library('email', $config); 
-		$this->email->set_newline("\r\n");
-	    $this->email->from('namoshi.test@gmail.com', 'Grafi');
-		$this->email->to($email);
-		$this->email->subject('Reset Password '); 
-		$this->email->message('reset password');
-	    if (!$this->email->send()) {
-		    show_error($this->email->print_debugger()); 
-		}else {
-		   return TRUE;
+
+
+	public function verify_reset_password_code($email, $email_code)
+	{
+		$query = $this->db->get_where('users', ['email' => $email]);
+		$old_password = $query->row()->password;
+		$email_code = str_replace('@', '/', $email_code);
+		if(password_verify($old_password, $email_code)) {
+			return TRUE;
 		}
+
+		return FALSE;
 	}
-	} 
+
+
+
+	public function update_password()
+	{
+		$email = $this->input->post('email');
+
+		$enc_password = password_hash($this->input->post('new_password'), PASSWORD_BCRYPT);
+
+		$data = [
+			'password' => $enc_password,			
+			];
+		$this->db->where('email', $email);
+		return $this->db->update('users', $data);
+	}
+
+
+
+
+
+}

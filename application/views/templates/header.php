@@ -2,14 +2,17 @@
 	<head>
 		<title>
 		<?=$title?>
-		</title>		
+		</title>
+    <meta charset="utf-8">		
 		  <meta name="viewport" content="width=device-width, initial-scale=1">
-		  
-      <link rel="stylesheet" href="https://bootswatch.com/flatly/bootstrap.min.css">
-		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">      
+		  <script src="<?php echo base_url();?>assets/css/jquery.min.js"></script>
+		  <script src="<?php echo base_url();?>assets/css/bootstrap.min.js"></script>
       <script src="//cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
-      <?=link_tag('assets/css/style.css');?>
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+      <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/style.css">
 	</head>
 
 	<body>
@@ -75,6 +78,10 @@ echo "<p class = 'alert alert-success'>".$this->session->flashdata('notification
 if($this->session->flashdata('email')){
 echo "<p class = 'alert alert-success'>".$this->session->flashdata('email')."</p>";
 }
+if($this->session->flashdata('pwrecover_message_to_email')){
+echo "<p class = 'alert alert-success'>".$this->session->flashdata('pwrecover_message_to_email')."</p>";
+}
+
 ?>
  
  
