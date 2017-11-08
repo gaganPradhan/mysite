@@ -49,22 +49,9 @@ class ForgotPassword extends MY_Controller {
 			  'smtp_user' => 'namoshi.test@gmail.com', // change it to yours
 			  'smtp_pass' => '$password', // change it to yours
 			  'charset' => 'utf-8',
-			  'wordwrap' => TRUE,
-			  'newline' => "\r\n"
+			  'wordwrap' => TRUE
 			];
-			$config['smtp_port'] = 465; 
-$config['smtp_timeout'] = 5;
-$config['wordwrap'] = TRUE;
-$config['wrapchars'] = 76;
-$config['mailtype'] = 'html';
-$config['charset'] = 'utf-8';
-$config['validate'] = FALSE;
-$config['priority'] = 3;
-$config['crlf'] = "\r\n";
-$config['newline'] = "\r\n";
-$config['bcc_batch_mode'] = FALSE;
-$config['bcc_batch_size'] = 200;
-//echo $this->config->item('bot_email');
+	
 			$this->load->library('email', $config);
 			$this->email->set_newline("\r\n");
 		 

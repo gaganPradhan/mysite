@@ -1,6 +1,4 @@
 <?php 
-
-mail('gagan.pradhan@hotmail.com', 'My Subject', 'asdasds', 'From: namoshi.test@gmail.com');
 if($error) {
   echo $error;
 }
