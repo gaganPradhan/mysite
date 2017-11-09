@@ -1,6 +1,10 @@
 <?php 
 
 class ForgotPassword extends MY_Controller {
+	public function _contruct() {
+		parent::_construct();
+		 $this->load->helper(array('email'));
+	}
 
 	public function email_exists($email)
 	{
@@ -41,23 +45,15 @@ class ForgotPassword extends MY_Controller {
 	{
 		$this->not_loggedin_for_pw_recovery();
 		$email_code = password_hash($old_password, PASSWORD_BCRYPT);
-		$email_code = str_replace('/', '@', $email_code);
-		$config = [
-			  'protocol' => 'smtp',
-			  'smtp_host' => 'ssl://smtp.googlemail.com',
-			  'smtp_port' => 465,
-			  'smtp_user' => 'namoshi.test@gmail.com', // change it to yours
-			  'smtp_pass' => '$password', // change it to yours
-			  'charset' => 'utf-8',
-			  'wordwrap' => TRUE
-			];
-	
-			$this->load->library('email', $config);
-			$this->email->set_newline("\r\n");
-		 
-		$this->email->from('namoshi.test@gmail.com', 'Grafi');
-		$this->email->to($email);
-		$this->email->subject('Please reset your password at ciBlog');
+		$email_code = str_replace('/', '~', $email_code);		
+		$to      = $email;
+		$subject = 'Reset Password';
+		$headers = 'From: Grafi Offshore' . "\r\n" .
+    	'Reply-To: ' . $email . "\r\n" .
+    	'X-Mailer: PHP/' . phpversion();
+    	$headers. = "MIME-Version: 1.0" . "\r\n";
+		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
 
 		$message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 
@@ -69,26 +65,25 @@ class ForgotPassword extends MY_Controller {
 		$message = '<p>Dear User:' . $username . '</p>';
 		//link will be type /forgotpassword/reset_password_form/emailaddress/emailcode
 
-		$message .= '<p> We want to help you reset your password! please <strong><a href="' . base_url() . 'forgotpassword/reset_password_form/' . $email . '/' . $email_code . '"> Click Here</a> </strong> to reset your password. </p>';
+		$message .= "<p> We want to help you reset your password! please <strong><a href='" . base_url() . "forgotpassword/reset_password_form/" . $email . "/" . $email_code . "'> Click Here</a> </strong> to reset your password. </p>";
 
 		$message .= '<p> Thank you </p>';
 		$message .= '</body></html>';
 
-		$this->email->message($message);
 
-
-		if($this->email->send())
-	     {
-	      	echo 'Email sent.';	      
-	     }
-	     else
-	    {
-	     	show_error($this->email->print_debugger());
-	    }
+		try{
+			if(mail($to, $subject, $message, $headers)) {
+	      		echo 'Email sent.';	      
+	    	} else {
+	     		show_error($this->email->print_debugger());
+	    	}
+		}catch(Exception $e){
+			die($e->getMessage());
+		}
+		
 	}
 
-
-
+	
 
 	public function reset_password_form($email, $email_code)
 	{

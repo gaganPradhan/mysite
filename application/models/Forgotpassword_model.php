@@ -14,7 +14,7 @@ class Forgotpassword_model extends CI_Model {
 	{
 		$query = $this->db->get_where('users', ['email' => $email]);
 		$old_password = $query->row()->password;
-		$email_code = str_replace('@', '/', $email_code);
+		$email_code = str_replace('~', '/', $email_code);
 		if(password_verify($old_password, $email_code)) {
 			return TRUE;
 		}
