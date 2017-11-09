@@ -64,7 +64,7 @@ $route['newsletter']  		 = 'newsletter/index';
 $route['newsletter/post']    = 'newsletter/post';
 $route['newsletter/(:any)']  = 'newsletter/view/$1';
 
-$route['forgotpassword'] = 'forgotpassword/index';
+$route['forgotpassword'] 		= 'forgotpassword/index';
 $route['forgotpassword/(:any)'] = 'forgotpassword/change/$1';
 
 $route['list']				 = 'requests/list';

@@ -51,7 +51,7 @@ class ForgotPassword extends MY_Controller {
 		$headers = 'From: Grafi Offshore' . "\r\n" .
     	'Reply-To: ' . $email . "\r\n" .
     	'X-Mailer: PHP/' . phpversion();
-    	$headers. = "MIME-Version: 1.0" . "\r\n";
+    	$headers .= "MIME-Version: 1.0" . "\r\n";
 		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
 
@@ -82,7 +82,6 @@ class ForgotPassword extends MY_Controller {
 		}
 		
 	}
-
 	
 
 	public function reset_password_form($email, $email_code)
@@ -105,13 +104,10 @@ class ForgotPassword extends MY_Controller {
 		}
 	}
 
-
-
 	public function update_password($email,$email_code)
 	{
 		$this->not_loggedin_for_pw_recovery();
-		if((!$this->input->post('email_hash') && !$this->input->post('email_code')) || $this->input->post('email_hash') !== sha1($this->input->post('email') . $this->input->post('email_code')))
-		{
+		if((!$this->input->post('email_hash') && !$this->input->post('email_code')) || $this->input->post('email_hash') !== sha1($this->input->post('email') . $this->input->post('email_code'))) {
 			//Either a hacker or they changed their email in the email field, just die.
 			die('Error Updating your password');
 		}
